@@ -7,7 +7,7 @@
 
 Name:           %{?scl_prefix}nodejs-cmd-shim
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Used to create executable scripts on Windows and Unix
 BuildArch:      noarch
 ExclusiveArch: %{nodejs_arches} noarch
@@ -31,6 +31,7 @@ supports creating shell script shims also.
 
 %prep
 %setup -q -n package
+%nodejs_fixdep graceful-fs '>= 4.1.2'
 
 # CRLF -> LF
 sed -i 's/\r//g' README.md LICENSE
@@ -56,6 +57,9 @@ cp -pr index.js package.json %{buildroot}%{nodejs_sitelib}/cmd-shim
 %license LICENSE
 
 %changelog
+* Tue Feb 16 2016 Tomas Hrcka <thrcka@redhat.com> - 2.0.0-4
+- Fix dependency on graceful-fs
+
 * Wed Jul 15 2015 Zuzana Svetlikova <zsvetlik@redhat.com> - 2.0.0-2
 - Enable tests
 - minor changes
